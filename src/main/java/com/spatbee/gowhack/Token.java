@@ -1,3 +1,5 @@
+package com.spatbee.gowhack;
+
 public enum Token {
     COPPER(1),
     SILVER(3),

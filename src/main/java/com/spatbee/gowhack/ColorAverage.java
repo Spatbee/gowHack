@@ -1,3 +1,5 @@
+package com.spatbee.gowhack;
+
 public class ColorAverage {
 
     private double r, g, b, totalWeight;

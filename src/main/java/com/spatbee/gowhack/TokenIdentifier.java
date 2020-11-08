@@ -1,3 +1,5 @@
+package com.spatbee.gowhack;
+
 import java.util.EnumMap;
 import java.util.Map;
 
