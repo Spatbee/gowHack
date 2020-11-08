@@ -27,22 +27,26 @@ public class TokenIdentifier {
     }
 
     private static ColorAverage getColorAverageWeightedAroundCenter(BufferedImage image) {
-        double maxConsiderationFromCenter = ((double) Math.min(image.getHeight(), image.getWidth())) / 2;
+        return getColorAverageWeightedAroundCenter(image, 0, 0, image.getWidth(), image.getHeight());
+    }
+
+    private static ColorAverage getColorAverageWeightedAroundCenter(BufferedImage image, int xStart, int yStart, int width, int height) {
+        double maxConsiderationFromCenter = ((double) Math.min(width, height)) / 2;
         ColorAverage colorAverage = new ColorAverage();
-        for (int x = 0; x < image.getWidth(); x+=5) {
-            for (int y = 0; y < image.getHeight(); y+=5) {
+        for (int x = xStart; x < xStart + width; x+=5) {
+            for (int y = yStart; y < yStart + height; y+=5) {
                 int rbg = image.getRGB(x, y);
-                double weight = Math.max(maxConsiderationFromCenter - Math.sqrt(Math.pow(((double) image.getWidth()) / 2 - x, 2) + Math.pow(((double) image.getHeight()) / 2 - y, 2)), 0) / maxConsiderationFromCenter;
+                double weight = Math.max(maxConsiderationFromCenter - Math.sqrt(Math.pow(((double) width) / 2 - x + xStart, 2) + Math.pow(((double) height) / 2 - y + yStart, 2)), 0) / maxConsiderationFromCenter;
                 colorAverage.addWeightedColorDatum((rbg >> 16) & 0xFF, (rbg >> 8) & 0xFF, rbg & 0xFF, weight);
             }
         }
         return colorAverage;
     }
 
-    public static Token identifyToken(BufferedImage image) throws IOException {
+    public static Token identifyToken(BufferedImage image, int x, int y, int width, int height) throws IOException {
         Token identifiedToken = null;
         Double shortestDistance = Double.MAX_VALUE;
-        ColorAverage colorAverage = getColorAverageWeightedAroundCenter(image);
+        ColorAverage colorAverage = getColorAverageWeightedAroundCenter(image, x, y, width, height);
         for(Token token : Token.values()) {
             double distance = getTokenColorAverageMap().get(token).getDistanceTo(colorAverage);
             if(distance < shortestDistance) {

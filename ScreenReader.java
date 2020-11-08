@@ -22,14 +22,16 @@ public class ScreenReader {
 
     public static Token[][] getTokenGrid() throws AWTException, IOException {
         Token[][] tokenGrid = new Token[8][8];
+        BufferedImage boardImage = getRobot().createScreenCapture(new Rectangle(TOP_LEFT_X, TOP_LEFT_Y, WIDTH, HEIGHT));
         for(int row = 0; row < 8; row++) {
             for(int col = 0; col < 8; col++) {
-                tokenGrid[row][col] = TokenIdentifier.identifyToken(getRobot().createScreenCapture(new Rectangle(
-                    TOP_LEFT_X + col * WIDTH / 8,
-                    TOP_LEFT_Y + row * HEIGHT / 8,
+                tokenGrid[row][col] = TokenIdentifier.identifyToken(
+                    boardImage, 
+                    col * WIDTH / 8,
+                    row * HEIGHT / 8,
                     WIDTH / 8,
                     HEIGHT / 8
-                )));
+                );
             }
         }
         return tokenGrid;

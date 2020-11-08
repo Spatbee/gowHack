@@ -31,7 +31,6 @@ public class ColorAverage {
     }
 
     public String toString() {
-        // System.out.println(r);
         return String.format("[%.2f,%.2f,%.2f]", r, b, g);
     }
 
