@@ -21,15 +21,18 @@ public class ColorAverage {
         return g;
     }
 
-    public void addWeightedColorDatum(float r, float b, float g, float weight) {
-        this.r = (this.r * totalWeight + r * weight) / (totalWeight + weight);
-        this.b = (this.b * totalWeight + b * weight) / (totalWeight + weight);
-        this.g = (this.g * totalWeight + g * weight) / (totalWeight + weight);
-        totalWeight += weight;
+    public void addWeightedColorDatum(int r, int b, int g, double weight) {
+        if(weight > 0) {
+            this.r = (this.r * totalWeight + r * weight) / (totalWeight + weight);
+            this.b = (this.b * totalWeight + b * weight) / (totalWeight + weight);
+            this.g = (this.g * totalWeight + g * weight) / (totalWeight + weight);
+            totalWeight += weight;
+        }
     }
 
     public String toString() {
-        return String.format("[%.2d,%.2d,%.2d]", r, b, g);
+        // System.out.println(r);
+        return String.format("[%.2f,%.2f,%.2f]", r, b, g);
     }
 
     public double getDistanceTo(ColorAverage other) {
