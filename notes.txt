@@ -1,5 +1,5 @@
 TODO:
--conver project to maven
+- convert project to maven
 - use OCR (tesseract OCR) to read turns left
 - find all possible moves
 - simulate clicks

@@ -4,9 +4,9 @@ public enum Token {
     GOLD(10),
     BAG(30),
     WOOD(80),
-    EMERALD(100),
-    RUBY(200),
-    SAFE(400);
+    EMERALD(200),
+    RUBY(400),
+    SAFE(1000);
 
     private int score;
 
