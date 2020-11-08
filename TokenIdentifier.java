@@ -29,8 +29,8 @@ public class TokenIdentifier {
     private static ColorAverage getColorAverageWeightedAroundCenter(BufferedImage image) {
         double maxConsiderationFromCenter = ((double) Math.min(image.getHeight(), image.getWidth())) / 2;
         ColorAverage colorAverage = new ColorAverage();
-        for (int x = 0; x < image.getWidth(); x++) {
-            for (int y = 0; y < image.getHeight(); y++) {
+        for (int x = 0; x < image.getWidth(); x+=5) {
+            for (int y = 0; y < image.getHeight(); y+=5) {
                 int rbg = image.getRGB(x, y);
                 double weight = Math.max(maxConsiderationFromCenter - Math.sqrt(Math.pow(((double) image.getWidth()) / 2 - x, 2) + Math.pow(((double) image.getHeight()) / 2 - y, 2)), 0) / maxConsiderationFromCenter;
                 colorAverage.addWeightedColorDatum((rbg >> 16) & 0xFF, (rbg >> 8) & 0xFF, rbg & 0xFF, weight);
@@ -50,7 +50,7 @@ public class TokenIdentifier {
                 identifiedToken = token;
             }
         }
-        System.out.println(String.format("shortest distance: %.2f", shortestDistance));
+        //TODO write an exception if the distance is greater than 15, I guess
         return identifiedToken;
     }
 

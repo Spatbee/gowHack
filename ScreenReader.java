@@ -35,6 +35,7 @@ public class ScreenReader {
         return tokenGrid;
     }
     public static void main(String[] args) throws AWTException, IOException {
+        long start = System.currentTimeMillis();
         Token[][] tokenGrid = getTokenGrid();
         for(int x = 0; x < 8; x++) {
             for(int y = 0; y < 8; y++) {
@@ -42,5 +43,6 @@ public class ScreenReader {
             }
             System.out.println();
         }
+        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
     }
 }
