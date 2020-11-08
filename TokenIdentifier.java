@@ -33,11 +33,11 @@ public class TokenIdentifier {
     private static ColorAverage getColorAverageWeightedAroundCenter(BufferedImage image, int xStart, int yStart, int width, int height) {
         double maxConsiderationFromCenter = ((double) Math.min(width, height)) / 2;
         ColorAverage colorAverage = new ColorAverage();
-        for (int x = xStart; x < xStart + width; x+=5) {
-            for (int y = yStart; y < yStart + height; y+=5) {
-                int rbg = image.getRGB(x, y);
+        for (int x = xStart; x < xStart + width; x+=2) {
+            for (int y = yStart; y < yStart + height; y+=2) {
+                int rgb = image.getRGB(x, y);
                 double weight = Math.max(maxConsiderationFromCenter - Math.sqrt(Math.pow(((double) width) / 2 - x + xStart, 2) + Math.pow(((double) height) / 2 - y + yStart, 2)), 0) / maxConsiderationFromCenter;
-                colorAverage.addWeightedColorDatum((rbg >> 16) & 0xFF, (rbg >> 8) & 0xFF, rbg & 0xFF, weight);
+                colorAverage.addWeightedColorDatum((rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF, weight);
             }
         }
         return colorAverage;
