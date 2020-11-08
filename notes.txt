@@ -5,3 +5,9 @@ TODO:
 - monte carlo algorithm
   - modify to remove bad moves
   - modify to consider best moves with more weight
+
+
+
+To run:
+mvn clean install
+java -jar ./target/gowhack-1.0-SNAPSHOT.jar
