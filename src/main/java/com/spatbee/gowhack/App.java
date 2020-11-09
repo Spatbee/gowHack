@@ -6,6 +6,7 @@ import java.io.IOException;
 public class App {
     public static void main(String[] args) throws AWTException, IOException
     {
+        ScreenReader.getTurnImage();
         long start = System.currentTimeMillis();
         Token[][] tokenGrid = ScreenReader.getTokenGrid();
         for(int x = 0; x < 8; x++) {
