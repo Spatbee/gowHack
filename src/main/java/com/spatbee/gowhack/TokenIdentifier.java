@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import com.spatbee.gowhack.exception.ColorDoesNotMatchWellException;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +47,7 @@ public class TokenIdentifier {
         return colorAverage;
     }
 
-    public static Token identifyToken(BufferedImage image, int x, int y, int width, int height) throws IOException {
+    public static Token identifyToken(BufferedImage image, int x, int y, int width, int height) throws IOException, ColorDoesNotMatchWellException {
         Token identifiedToken = null;
         Double shortestDistance = Double.MAX_VALUE;
         ColorAverage colorAverage = getColorAverageWeightedAroundCenter(image, x, y, width, height);
@@ -56,7 +58,9 @@ public class TokenIdentifier {
                 identifiedToken = token;
             }
         }
-        //TODO write an exception if the distance is greater than 15, I guess
+        if(shortestDistance > 15) {
+            throw new ColorDoesNotMatchWellException();
+        }
         return identifiedToken;
     }
 
