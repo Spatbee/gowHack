@@ -41,7 +41,7 @@ public class ScreenReader {
         return tesseract;
     }
 
-    public static Token[][] getTokenGrid() throws AWTException, IOException, ReadException {
+    private static Token[][] getTokenGrid() throws AWTException, IOException, ReadException {
         Token[][] tokenGrid = new Token[8][8];
         BufferedImage boardImage = getRobot().createScreenCapture(new Rectangle(Coordinates.BOARD_TOP_LEFT_X, Coordinates.BOARD_TOP_LEFT_Y, Coordinates.BOARD_WIDTH, Coordinates.BOARD_HEIGHT));
         for(int row = 0; row < 8; row++) {
@@ -62,13 +62,17 @@ public class ScreenReader {
         return tokenGrid;
     }
 
-    public static void getTurnImage() throws AWTException, ReadException {
+    private static int getTurnCount() throws AWTException, ReadException {
         BufferedImage turnImage = getRobot().createScreenCapture(new Rectangle(Coordinates.TURN_TOP_LEFT_X, Coordinates.TURN_TOP_LEFT_Y, Coordinates.TURN_WIDTH, Coordinates.TURN_HEIGHT));
         try {
-            System.out.println(getTesseract().doOCR(turnImage));
-        } catch (TesseractException e) {
+            return Integer.parseInt(getTesseract().doOCR(turnImage).trim());
+        } catch (TesseractException | NumberFormatException  e) {
             throw new ReadException();
         }
+    }
+
+    public static GameBoard readGameBoardFromScreen() throws AWTException, IOException, ReadException {
+        return new GameBoard(getTurnCount(), getTokenGrid());
     }
 
 }
