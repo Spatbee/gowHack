@@ -11,5 +11,8 @@ public class App {
         long start = System.currentTimeMillis();
         System.out.println(ScreenReader.readGameBoardFromScreen());
         System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+        start = System.currentTimeMillis();
+        System.out.println(ScreenReader.readGameBoardFromScreen());
+        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
     }
 }
