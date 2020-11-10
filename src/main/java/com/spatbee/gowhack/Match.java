@@ -11,7 +11,7 @@ public class Match {
     public static final int VERTICAL = 1;
     public static final int HORIZONTAL = 2;
     
-    List<Coordinate> coordinates;
+    private List<Coordinate> coordinates;
     private Token token;
     
     public Match(int type, Coordinate start, Coordinate end, Token token) {
@@ -21,14 +21,14 @@ public class Match {
             if(start.getRow() != end.getRow()) {
                 throw new IllegalArgumentException();
             }
-            for(int col = start.getCol(); col < end.getCol(); col++) {
+            for(int col = start.getCol(); col <= end.getCol(); col++) {
                 coordinates.add(new Coordinate(start.getRow(), col));
             }
         } else {
             if(start.getCol() != end.getCol()) {
                 throw new IllegalArgumentException();
             }
-            for(int row = start.getRow(); row < end.getRow(); row++) {
+            for(int row = start.getRow(); row <= end.getRow(); row++) {
                 coordinates.add(new Coordinate(row, start.getCol()));
             }
         }

@@ -21,11 +21,11 @@ public class GameBoard {
     }
 
     private boolean matchExists() {
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 6; col++) {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
                 Token token = tokenGrid[row][col];
-                if (token != null && token != Token.SAFE && (token == tokenGrid[row][col + 1] && token == tokenGrid[row][col + 2]
-                        || token == tokenGrid[row + 1][col] && token == tokenGrid[row + 2][col])) {
+                if (token != null && token != Token.SAFE && (col < 6 && token == tokenGrid[row][col + 1] && token == tokenGrid[row][col + 2]
+                        || row < 6 && token == tokenGrid[row + 1][col] && token == tokenGrid[row + 2][col])) {
                     return true;
                 }
             }
@@ -95,10 +95,18 @@ public class GameBoard {
         String s = "GameBoard:[\nturns: " + turns + "\n";
         for (int row = 0; row < tokenGrid.length; row++) {
             for (int col = 0; col < tokenGrid[row].length; col++) {
-                s += tokenGrid[row][col].name();
+                String tokenName = "NULL";
+                if(tokenGrid[row][col] != null) {
+                    tokenName= tokenGrid[row][col].name();
+                }
+                s += tokenName;
                 if (col != tokenGrid[row].length - 1) {
                     s += " ";
+                    for(int i = tokenName.length(); i < 8; i++) {
+                        s += " ";
+                    }
                 }
+                
             }
             s += "\n";
         }
@@ -174,6 +182,7 @@ public class GameBoard {
                         destinationRow++;
                     }
                     tokenGrid[destinationRow][col] = tokenGrid[row][col];
+                    tokenGrid[row][col] = null;
                 }
             }
         }
@@ -215,7 +224,7 @@ public class GameBoard {
             Coordinate upgradeCoordinate = match.getCoordinateInTurn(turn);
             compressMatch(match, upgradeCoordinate);
         }
-        //while there are matches
+
         do {
             do {
                 matches = getMatches();
@@ -228,7 +237,6 @@ public class GameBoard {
             fillRandomly();
         } while(matchExists());
         
-        //change turn counter
         if(largestMatch >=5) {
             turns++;
         } else if(largestMatch <= 3) {
