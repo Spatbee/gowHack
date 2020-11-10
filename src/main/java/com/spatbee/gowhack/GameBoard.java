@@ -46,7 +46,7 @@ public class GameBoard {
                     break;
                 }
             }
-            if (intersectingMatchIndex > 0) {
+            if (intersectingMatchIndex < 0) {
                 matchIndex++;
             } else {
                 matches.get(matchIndex).addMatch(matches.remove(intersectingMatchIndex));
@@ -216,8 +216,9 @@ public class GameBoard {
             compressMatch(match, upgradeCoordinate);
         }
         //while there are matches
-        while(matchExists()) {
+        do {
             do {
+                matches = getMatches();
                 for(Match match : matches) {
                     largestMatch = Math.max(largestMatch, match.getSize());
                     compressMatch(match);
@@ -225,7 +226,7 @@ public class GameBoard {
             } while (matchExists());
             applyGravity();
             fillRandomly();
-        }
+        } while(matchExists());
         
         //change turn counter
         if(largestMatch >=5) {

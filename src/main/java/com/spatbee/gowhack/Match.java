@@ -1,5 +1,6 @@
 package com.spatbee.gowhack;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -15,7 +16,8 @@ public class Match {
     
     public Match(int type, Coordinate start, Coordinate end, Token token) {
         this.token = token;
-        if(type == VERTICAL) {
+        coordinates = new ArrayList<>();
+        if(type == HORIZONTAL) {
             if(start.getRow() != end.getRow()) {
                 throw new IllegalArgumentException();
             }
