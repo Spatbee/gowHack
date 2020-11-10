@@ -203,17 +203,16 @@ public class GameBoard {
     }
 
     private void fillRandomly() {
-        //TODO get these numbers
         for(int row = 0; row < 8; row ++) {
             for(int col = 0; col < 8; col ++) {
                 if(tokenGrid[row][col] == null) {
-                    int random = RandomUtil.randomInt(10);
+                    int random = RandomUtil.randomInt(4);
                     Token token = null;
-                    if(random < 3) {
+                    if(random < 1) {
                         token = Token.COPPER;
-                    } else if(random < 6) {
+                    } else if(random < 2) {
                         token = Token.SILVER;
-                    } else if(random < 9) {
+                    } else if(random < 3) {
                         token = Token.GOLD;
                     } else {
                         token = Token.BAG;
