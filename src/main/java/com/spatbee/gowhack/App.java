@@ -23,9 +23,16 @@ public class App {
         };
         GameBoard gameBoard = new GameBoard(12, tokenGrid);
         // System.out.println(gameBoard);
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 1; i++) {
+            GameBoard gameBoardClone = gameBoard.deepClone();
             long start = System.currentTimeMillis();
-            System.out.println("score: " + GameCoordinator.completeGameWithRandomMoves(gameBoard.deepClone()));
+            // GameCoordinator.completeGameWithRandomMoves(gameBoardClone);
+            while(gameBoardClone.getTurnsLeft() > 0) {
+                System.out.println("turns " + gameBoardClone.getTurnsLeft());
+                gameBoardClone.doTurn(GameCoordinator.getBestTurnMonteCarlo(gameBoardClone));
+            }
+            System.out.println("turns " + gameBoardClone.getTurnsLeft());
+            System.out.println("score: " + gameBoardClone.score());
             System.out.println(System.currentTimeMillis() - start + "ms");    
         }
     }
