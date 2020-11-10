@@ -20,6 +20,20 @@ public class GameBoard {
         }
     }
 
+    public int getTurnsLeft() {
+        return turns;
+    }
+
+    public int score() {
+        int score = 0;
+        for(Token[] row : tokenGrid) {
+            for(Token token : row) {
+                score += token.getScore();
+            }
+        }
+        return score;
+    }
+
     private boolean matchExists() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -178,7 +192,7 @@ public class GameBoard {
             for(int col = 0; col < 8; col ++) {
                 if(tokenGrid[row][col] != null && tokenGrid[row+1][col] == null) {
                     int destinationRow = row+1;
-                    while(destinationRow < 8 && tokenGrid[destinationRow+1][col] == null) {
+                    while(destinationRow < 7 && tokenGrid[destinationRow+1][col] == null) {
                         destinationRow++;
                     }
                     tokenGrid[destinationRow][col] = tokenGrid[row][col];

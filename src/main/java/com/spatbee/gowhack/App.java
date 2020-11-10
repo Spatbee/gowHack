@@ -22,10 +22,11 @@ public class App {
             {Token.COPPER, Token.BAG, Token.BAG, Token.COPPER, Token.COPPER, Token.BAG, Token.SILVER, Token.BAG}
         };
         GameBoard gameBoard = new GameBoard(12, tokenGrid);
-        System.out.println(gameBoard);
-        gameBoard.doTurn(new Turn(new Coordinate(2, 4), new Coordinate(2, 5)));
-        System.out.println("after turn");
-        System.out.println(gameBoard);
-        
+        // System.out.println(gameBoard);
+        for(int i = 0; i < 100; i++) {
+            long start = System.currentTimeMillis();
+            System.out.println("score: " + GameCoordinator.completeGameWithRandomMoves(gameBoard.deepClone()));
+            System.out.println(System.currentTimeMillis() - start + "ms");    
+        }
     }
 }
