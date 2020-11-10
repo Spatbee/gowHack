@@ -3,16 +3,13 @@ package com.spatbee.gowhack;
 import java.awt.AWTException;
 import java.io.IOException;
 
+import com.spatbee.gowhack.exception.IllegalBoardStateException;
 import com.spatbee.gowhack.exception.ReadException;
 
 public class App {
-    public static void main(String[] args) throws AWTException, IOException, ReadException
+    public static void main(String[] args) throws AWTException, IOException, ReadException, IllegalBoardStateException
     {
-        long start = System.currentTimeMillis();
-        System.out.println(ScreenReader.readGameBoardFromScreen());
-        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
-        start = System.currentTimeMillis();
-        System.out.println(ScreenReader.readGameBoardFromScreen());
-        System.out.println("time: " + (System.currentTimeMillis() - start) + "ms");
+        GameBoard gameBoard = ScreenReader.readGameBoardFromScreen();
+        System.out.println(gameBoard);
     }
 }

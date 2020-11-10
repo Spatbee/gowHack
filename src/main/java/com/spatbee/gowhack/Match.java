@@ -11,8 +11,10 @@ public class Match {
     public static final int HORIZONTAL = 2;
     
     List<Coordinate> coordinates;
+    private Token token;
     
-    public Match(int type, Coordinate start, Coordinate end) {
+    public Match(int type, Coordinate start, Coordinate end, Token token) {
+        this.token = token;
         if(type == VERTICAL) {
             if(start.getRow() != end.getRow()) {
                 throw new IllegalArgumentException();
@@ -58,5 +60,13 @@ public class Match {
 
     public Coordinate getRandomCoordinate() {
         return coordinates.get(RandomUtil.randomInt(coordinates.size()));
+    }
+
+    public int getSize() {
+        return coordinates.size();
+    }
+
+    public Token getToken() {
+        return token;
     }
 }
