@@ -18,8 +18,6 @@ public class GameCoordinator {
             try {
                 gameBoard.doTurn(turn);
             } catch (MatchDoesNotContainSingleTurnCoordinateException | CouldNotScrambleBoardException e) {
-                System.out.println("The match might have been illegal.");
-                System.out.println("row1: " + turn.getCoordinate1().getRow() + " col1: " + turn.getCoordinate1().getCol() + " row2: " + turn.getCoordinate2().getRow() + " col2: " + turn.getCoordinate2().getCol());
                 return 0;
             }
             
@@ -42,8 +40,6 @@ public class GameCoordinator {
                 try {
                     gameBoardClone.doTurn(turn);
                 } catch (MatchDoesNotContainSingleTurnCoordinateException | CouldNotScrambleBoardException e) {
-                    System.out.println("The match might have been illegal.");
-                    System.out.println("row1: " + turn.getCoordinate1().getRow() + " col1: " + turn.getCoordinate1().getCol() + " row2: " + turn.getCoordinate2().getRow() + " col2: " + turn.getCoordinate2().getCol());
                     return null;
                 }
                 totalScore += completeGameWithRandomMoves(gameBoardClone);
@@ -52,7 +48,6 @@ public class GameCoordinator {
                 bestTurn = turn;
                 bestTotalScore = totalScore;
             }
-            // System.out.println("turn score: " + (totalScore /100));
         }
         return bestTurn;
     }

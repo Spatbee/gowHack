@@ -1,6 +1,5 @@
 TODO:
-- scramble board if there are no moves
-- simulate clicks
+- create read, simulate, write loops
 - monte carlo algorithm
   - modify to remove bad moves
   - modify to consider best moves with more weight
