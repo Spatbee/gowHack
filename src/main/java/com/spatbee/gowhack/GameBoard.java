@@ -60,12 +60,12 @@ public class GameBoard {
     }
 
     private boolean isLegal(Turn turn) {
-        Token temp = tokenGrid[turn.getRow1()][turn.getCol1()];
-        tokenGrid[turn.getRow1()][turn.getCol1()] = tokenGrid[turn.getRow2()][turn.getCol2()];
-        tokenGrid[turn.getRow2()][turn.getCol2()] = temp;
+        Token temp = tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()];
+        tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()] = tokenGrid[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()];
+        tokenGrid[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()] = temp;
         boolean isLegal = matchExists();
-        tokenGrid[turn.getRow2()][turn.getCol2()] = tokenGrid[turn.getRow1()][turn.getCol1()];
-        tokenGrid[turn.getRow1()][turn.getCol1()] = temp;
+        tokenGrid[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()] = tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()];
+        tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()] = temp;
         return isLegal;
     }
 
@@ -74,7 +74,7 @@ public class GameBoard {
         //vertical turns
         for(int row = 0; row < 7; row ++) {
             for(int col = 0; col < 8; col ++) {
-                Turn turn = new Turn(row, col, row+1, col);
+                Turn turn = new Turn(new Coordinate(row, col), new Coordinate(row+1, col));
                 if(isLegal(turn)) {
                     legalTurns.add(turn);
                 }
@@ -83,7 +83,7 @@ public class GameBoard {
         //horizontal turns
         for(int row = 0; row < 8; row ++) {
             for(int col = 0; col < 7; col ++) {
-                Turn turn = new Turn(row, col, row, col+1);
+                Turn turn = new Turn(new Coordinate(row, col), new Coordinate(row, col+1));
                 if(isLegal(turn)) {
                     legalTurns.add(turn);
                 }
@@ -96,9 +96,9 @@ public class GameBoard {
         boolean matchedFour = false;
         boolean matchedFive = false;
         //swap
-        Token temp = tokenGrid[turn.getRow1()][turn.getCol1()];
-        tokenGrid[turn.getRow1()][turn.getCol1()] = tokenGrid[turn.getRow2()][turn.getCol2()];
-        tokenGrid[turn.getRow2()][turn.getCol2()] = temp;
+        Token temp = tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()];
+        tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()] = tokenGrid[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()];
+        tokenGrid[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()] = temp;
         //combine matches involved in swap upgrading to spots in the turn
         //while there are matches
         //combine all matches choosing a random position for upgrade
@@ -115,7 +115,7 @@ public class GameBoard {
 
     private void combineMatches(Turn turn) {
         //priotize the two pieces swapped in the turn if the turn is not null
-        
+
     }
     
 }

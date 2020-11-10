@@ -1,7 +1,10 @@
 package com.spatbee.gowhack;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
+
+import com.spatbee.gowhack.exception.MatchDoesNotContainSingleTurnCoordinateException;
 
 public class Match {
     public static final int VERTICAL = 1;
@@ -41,5 +44,19 @@ public class Match {
                 coordinates.add(coordinate);
             }
         }
+    }
+
+    public Coordinate getCoordinateInTurn(Turn turn) throws MatchDoesNotContainSingleTurnCoordinateException {
+        List<Coordinate> matchingCoordinates = coordinates.stream().filter(coordinate -> {
+            return coordinate.equals(turn.getCoordinate1()) || coordinate.equals(turn.getCoordinate2());
+        }).collect(Collectors.toList());
+        if(matchingCoordinates.size() != 1) {
+            throw new MatchDoesNotContainSingleTurnCoordinateException();
+        }
+        return matchingCoordinates.get(0);
+    }
+
+    public Coordinate getRandomCoordinate() {
+        return coordinates.get(RandomUtil.randomInt(coordinates.size()));
     }
 }

@@ -2,29 +2,28 @@ package com.spatbee.gowhack;
 
 public class Turn {
 
-    private int row1, col1, row2, col2;
+    private Coordinate coordinate1, coordinate2;
     
-    public Turn(int row1, int col1, int row2, int col2) {
-        this.row1 = row1;
-        this.col1 = col1;
-        this.row2 = row2;
-        this.col2 = col2;
+    public Turn(Coordinate coordinate1, Coordinate coordinate2) {
+        this.coordinate1 = coordinate1;
+        this.coordinate2 = coordinate2;
     }
 
-    public int getRow1() {
-        return row1;
+    public Coordinate getCoordinate1() {
+        return coordinate1;
     }
 
-    public int getCol1() {
-        return col1;
+    public void setCoordinate1(Coordinate coordinate1) {
+        this.coordinate1 = coordinate1;
     }
 
-    public int getRow2() {
-        return row2;
+    public Coordinate getCoordinate2() {
+        return coordinate2;
     }
 
-    public int getCol2() {
-        return col2;
+    public void setCoordinate2(Coordinate coordinate2) {
+        this.coordinate2 = coordinate2;
     }
+
 
 }
