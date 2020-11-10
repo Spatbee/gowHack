@@ -2,8 +2,10 @@ package com.spatbee.gowhack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import com.spatbee.gowhack.exception.CouldNotScrambleBoardException;
 import com.spatbee.gowhack.exception.IllegalBoardStateException;
 import com.spatbee.gowhack.exception.MatchDoesNotContainSingleTurnCoordinateException;
 
@@ -220,11 +222,30 @@ public class GameBoard {
                     tokenGrid[row][col] = token;
                 }
             }
-        }
-        
+        }   
     }
 
-    public void doTurn(Turn turn) throws MatchDoesNotContainSingleTurnCoordinateException {
+    private void scramble() throws CouldNotScrambleBoardException {
+        int scrambleAttempts = 0;
+        while(scrambleAttempts < 1000 && (getAllTurns().isEmpty() || !getMatches().isEmpty())) {
+            List<Token> allTokens = new ArrayList<>();
+            for(Token[] row : tokenGrid) {
+                Collections.addAll(allTokens, row);
+            }
+            Collections.shuffle(allTokens);
+            for(int row = 0; row < 8; row++) {
+                for(int col = 0; col < 8; col++) {
+                    tokenGrid[row][col] = allTokens.get(row * 8 + col);
+                }
+            }
+            scrambleAttempts++;
+        }
+        if(scrambleAttempts == 1000) {
+            throw new CouldNotScrambleBoardException();
+        }
+    }
+
+    public void doTurn(Turn turn) throws MatchDoesNotContainSingleTurnCoordinateException, CouldNotScrambleBoardException {
         int largestMatch = 0;
         //swap
         Token temp = tokenGrid[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()];
@@ -249,6 +270,10 @@ public class GameBoard {
             applyGravity();
             fillRandomly();
         } while(matchExists());
+
+        if(getAllTurns().isEmpty()) {
+            scramble();
+        }
         
         if(largestMatch >=5) {
             turns++;

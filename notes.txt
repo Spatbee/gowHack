@@ -1,5 +1,5 @@
 TODO:
-- find all possible moves
+- scramble board if there are no moves
 - simulate clicks
 - monte carlo algorithm
   - modify to remove bad moves
