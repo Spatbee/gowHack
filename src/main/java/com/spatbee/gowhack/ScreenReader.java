@@ -4,10 +4,7 @@ import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import com.spatbee.gowhack.exception.ColorDoesNotMatchWellException;
 import com.spatbee.gowhack.exception.IllegalBoardStateException;
