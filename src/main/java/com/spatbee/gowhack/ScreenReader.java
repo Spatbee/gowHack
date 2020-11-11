@@ -33,6 +33,7 @@ public class ScreenReader {
         if (tesseract == null) {
             tesseract = new Tesseract();
             tesseract.setDatapath(".");
+            tesseract.setTessVariable("tessedit_char_whitelist", "0123456789");
         }
         return tesseract;
     }
@@ -61,6 +62,7 @@ public class ScreenReader {
         try {
             return Integer.parseInt(getTesseract().doOCR(turnImage).trim());
         } catch (TesseractException | NumberFormatException e) {
+            e.printStackTrace();
             throw new ReadException();
         }
     }

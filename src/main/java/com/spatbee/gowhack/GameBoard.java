@@ -18,12 +18,32 @@ public class GameBoard {
         this.turns = turns;
         this.tokenGrid = tokenGrid;
         if (matchExists()) {
+            System.out.println("illegal board");
+            System.out.println(this);
             throw new IllegalBoardStateException();
         }
     }
 
     public int getTurnsLeft() {
         return turns;
+    }
+
+    public Token[][] getTokenGrid() {
+        return tokenGrid;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(other == null) return false;
+        if(! (other instanceof GameBoard)) return false;
+        GameBoard gb = (GameBoard) other;
+        if(turns != gb.turns) return false;
+        for(int row = 0; row < 8; row ++) {
+            for(int col = 0; col < 8; col ++) {
+                if(tokenGrid[row][col] != gb.getTokenGrid()[row][col]) return false;
+            }
+        }
+        return true;
     }
 
     public int score() {
