@@ -1,5 +1,6 @@
 package com.spatbee.gowhack;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.spatbee.gowhack.exception.CouldNotScrambleBoardException;
@@ -27,10 +28,6 @@ public class GameCoordinator {
 
     public static Turn getBestTurnMonteCarlo(GameBoard gameBoard) {
         List<Turn> turns = gameBoard.getAllTurns();
-        if(turns.size() == 0) {
-            System.out.println("ran out of turns.... I need to account for this");
-            return null;
-        }
         Turn bestTurn = turns.get(0);
         long bestTotalScore = 0;
         for(Turn turn : turns) {

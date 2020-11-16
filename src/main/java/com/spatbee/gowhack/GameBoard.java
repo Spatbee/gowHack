@@ -301,5 +301,33 @@ public class GameBoard {
             turns--;
         }
     }
+
+    public int getSizeOfTurnBeforeWithoutGravity(Turn turn) throws MatchDoesNotContainSingleTurnCoordinateException {
+        GameBoard gameBoardClone = deepClone();
+        int largestMatch = 0;
+        //swap
+        Token temp = gameBoardClone.getTokenGrid()[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()];
+        gameBoardClone.getTokenGrid()[turn.getCoordinate1().getRow()][turn.getCoordinate1().getCol()] = gameBoardClone.getTokenGrid()[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()];
+        gameBoardClone.getTokenGrid()[turn.getCoordinate2().getRow()][turn.getCoordinate2().getCol()] = temp;
+        //combine matches involved in swap upgrading to spots in the turn
+        List<Match> matches = gameBoardClone.getMatches();
+        for(Match match : matches) {
+            largestMatch = Math.max(largestMatch, match.getSize());
+            Coordinate upgradeCoordinate = match.getCoordinateInTurn(turn);
+            gameBoardClone.compressMatch(match, upgradeCoordinate);
+        }
+
+        do {
+            do {
+                matches = gameBoardClone.getMatches();
+                for(Match match : matches) {
+                    largestMatch = Math.max(largestMatch, match.getSize());
+                    gameBoardClone.compressMatch(match);
+                }
+            } while (matchExists());
+            gameBoardClone.applyGravity();
+        } while(gameBoardClone.matchExists());
+        return largestMatch;
+    }
     
 }

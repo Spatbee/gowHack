@@ -14,7 +14,7 @@ public class GamePlayer {
             boolean twoReadsMatch = false;
             GameBoard gameBoard = null;
             int fails = 0;
-            while (fails < 20 && !twoReadsMatch) {
+            while (fails < 100 && !twoReadsMatch) {
                 try {
                     GameBoard newGameBoard = ScreenReader.readGameBoardFromScreen();
                     if (newGameBoard.equals(gameBoard)) {
@@ -34,7 +34,7 @@ public class GamePlayer {
                     }
                 }
             }
-            if(fails == 20) {
+            if(fails == 100) {
                 System.out.println("terminating");
                 terminate = true;
             } else {
