@@ -12,7 +12,7 @@ public class NewBoardGenerator {
         // private constructor to hide implicit public one
     }
 
-    public GameBoard generateStartingGameBoard() throws IllegalBoardStateException {
+    public static GameBoard generateStartingGameBoard() throws IllegalBoardStateException {
         Token[][] tokenGrid = new Token[8][8];
         for(int row = 0; row < 8; row ++) {
             for(int col = 0; col < 8; col++) {
@@ -20,7 +20,7 @@ public class NewBoardGenerator {
                 Collections.shuffle(tokens);
                 int index = 0;
                 while(
-                    !(row < 2 || tokenGrid[row - 2][col] != tokens.get(index) || tokenGrid[row - 1][col] != tokens.get(index)) &&
+                    !(row < 2 || tokenGrid[row - 2][col] != tokens.get(index) || tokenGrid[row - 1][col] != tokens.get(index)) ||
                     !(col < 2 || tokenGrid[row][col - 2] != tokens.get(index) || tokenGrid[row][col - 1] != tokens.get(index))
                 ) {
                     index++;

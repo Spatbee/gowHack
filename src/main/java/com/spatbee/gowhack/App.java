@@ -38,6 +38,9 @@ public class App {
         // }
         // System.out.println("Average: " + (totalScoreMonteCarloAverage/20));
         // System.out.println("Median: " + (totalScoreMonteCarloMedian/20));
-        GamePlayer.playGame();
+        
+        // GamePlayer.playGame();
+
+        System.out.println(NewBoardGenerator.generateStartingGameBoard());
     }
 }
