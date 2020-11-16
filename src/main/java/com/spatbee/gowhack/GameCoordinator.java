@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.spatbee.gowhack.exception.CouldNotScrambleBoardException;
 import com.spatbee.gowhack.exception.MatchDoesNotContainSingleTurnCoordinateException;
+import com.spatbee.gowhack.heuristics.GameBoardEvaluationWrapper;
+import com.spatbee.gowhack.heuristics.HeuristicEvaluationGene;
 
 public class GameCoordinator {
 
@@ -44,6 +46,26 @@ public class GameCoordinator {
             if(totalScore > bestTotalScore) {
                 bestTurn = turn;
                 bestTotalScore = totalScore;
+            }
+        }
+        return bestTurn;
+    }
+
+    public static Turn getBestTurnFromHeuristicEvaluation(GameBoard gameBoard, HeuristicEvaluationGene heuristic)
+            throws MatchDoesNotContainSingleTurnCoordinateException, CouldNotScrambleBoardException {
+        List<Turn> turns = gameBoard.getAllTurns();
+        Turn bestTurn = turns.get(0);
+        double bestTurnTotalScore = 0d;
+        for(Turn turn : turns) {
+            double score = 0d;
+            for(int i = 0; i < 5; i++) {
+                GameBoard gameBoardClone = gameBoard.deepClone();
+                gameBoardClone.doTurn(turn);
+                score += heuristic.evaluate(new GameBoardEvaluationWrapper(gameBoard));
+            }
+            if(score > bestTurnTotalScore) {
+                bestTurnTotalScore = score;
+                bestTurn = turn;
             }
         }
         return bestTurn;

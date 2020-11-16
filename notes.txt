@@ -1,11 +1,12 @@
 TODO:
-- create read, simulate, write loops
-- monte carlo algorithm
-  - modify to remove bad moves
-  - modify to consider best moves with more weight
+- genetic algorithm
+  - serialization
 
 
 
 To run:
 mvn clean install
 mvn exec:java -Dexec.mainClass="com.spatbee.gowhack.App" -Dexec.classpathScope=runtime 
+
+
+Average Monte Carlo score: 3945
