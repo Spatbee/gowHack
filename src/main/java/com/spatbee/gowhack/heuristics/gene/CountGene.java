@@ -1,7 +1,9 @@
-package com.spatbee.gowhack.heuristics;
+package com.spatbee.gowhack.heuristics.gene;
 
 import com.spatbee.gowhack.RandomUtil;
 import com.spatbee.gowhack.Token;
+import com.spatbee.gowhack.heuristics.GameBoardEvaluationWrapper;
+import com.spatbee.gowhack.heuristics.NewGeneGenerator;
 
 public class CountGene implements HeuristicEvaluationGene {
 

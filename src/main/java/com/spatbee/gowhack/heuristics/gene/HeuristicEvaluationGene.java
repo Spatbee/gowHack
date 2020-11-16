@@ -1,6 +1,8 @@
-package com.spatbee.gowhack.heuristics;
+package com.spatbee.gowhack.heuristics.gene;
 
 import java.io.Serializable;
+
+import com.spatbee.gowhack.heuristics.GameBoardEvaluationWrapper;
 
 public interface HeuristicEvaluationGene extends Serializable {
     

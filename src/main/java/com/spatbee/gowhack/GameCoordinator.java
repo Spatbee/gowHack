@@ -1,12 +1,11 @@
 package com.spatbee.gowhack;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.spatbee.gowhack.exception.CouldNotScrambleBoardException;
 import com.spatbee.gowhack.exception.MatchDoesNotContainSingleTurnCoordinateException;
 import com.spatbee.gowhack.heuristics.GameBoardEvaluationWrapper;
-import com.spatbee.gowhack.heuristics.HeuristicEvaluationGene;
+import com.spatbee.gowhack.heuristics.gene.HeuristicEvaluationGene;
 
 public class GameCoordinator {
 

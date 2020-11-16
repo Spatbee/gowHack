@@ -1,8 +1,10 @@
-package com.spatbee.gowhack.heuristics;
+package com.spatbee.gowhack.heuristics.gene;
 
 import com.spatbee.gowhack.RandomUtil;
+import com.spatbee.gowhack.heuristics.GameBoardEvaluationWrapper;
+import com.spatbee.gowhack.heuristics.NewGeneGenerator;
 
-public class TurnsLeftGene implements HeuristicEvaluationGene {
+public class RandomGene implements HeuristicEvaluationGene {
 
     private static final long serialVersionUID = 1L;
     
@@ -12,16 +14,17 @@ public class TurnsLeftGene implements HeuristicEvaluationGene {
         if(r < .02) {
             return NewGeneGenerator.creatNewGene();
         }
-        return new TurnsLeftGene();
+        return new RandomGene();
     }
 
     @Override
     public Double evaluate(GameBoardEvaluationWrapper gameBoard) {
-        return gameBoard.getTurnsLeft();
+        return RandomUtil.randomDouble(0d, 1d);
     }
 
     @Override
     public String pretty() {
-        return "number of turns left";
+        return "random 0 to 1";
     }
+    
 }

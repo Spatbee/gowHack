@@ -1,8 +1,10 @@
-package com.spatbee.gowhack.heuristics;
+package com.spatbee.gowhack.heuristics.gene;
 
 import com.spatbee.gowhack.RandomUtil;
+import com.spatbee.gowhack.heuristics.GameBoardEvaluationWrapper;
+import com.spatbee.gowhack.heuristics.NewGeneGenerator;
 
-public class RandomGene implements HeuristicEvaluationGene {
+public class ScoreGene implements HeuristicEvaluationGene {
 
     private static final long serialVersionUID = 1L;
     
@@ -12,17 +14,17 @@ public class RandomGene implements HeuristicEvaluationGene {
         if(r < .02) {
             return NewGeneGenerator.creatNewGene();
         }
-        return new RandomGene();
+        return new ScoreGene();
     }
 
     @Override
     public Double evaluate(GameBoardEvaluationWrapper gameBoard) {
-        return RandomUtil.randomDouble(0d, 1d);
+        return gameBoard.getScore();
     }
 
     @Override
     public String pretty() {
-        return "random 0 to 1";
+        return "board score";
     }
     
 }

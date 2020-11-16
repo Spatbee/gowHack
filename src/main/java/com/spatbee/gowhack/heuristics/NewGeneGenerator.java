@@ -1,6 +1,8 @@
 package com.spatbee.gowhack.heuristics;
 
 import com.spatbee.gowhack.RandomUtil;
+import com.spatbee.gowhack.heuristics.gene.ConstantGene;
+import com.spatbee.gowhack.heuristics.gene.HeuristicEvaluationGene;
 
 public class NewGeneGenerator {
     
