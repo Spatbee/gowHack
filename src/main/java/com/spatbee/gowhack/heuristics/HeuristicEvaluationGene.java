@@ -6,7 +6,7 @@ public interface HeuristicEvaluationGene extends Serializable {
     
     public HeuristicEvaluationGene replicateWithMutation();
 
-    public Double evaluate(GameBoardEvaluationWrapper boardGame);
+    public Double evaluate(GameBoardEvaluationWrapper gameBoard);
 
     public String pretty();
 

@@ -1,5 +1,6 @@
 package com.spatbee.gowhack.heuristics;
 
+import com.spatbee.gowhack.RandomUtil;
 import com.spatbee.gowhack.Token;
 
 public class CountGene implements HeuristicEvaluationGene {
@@ -8,16 +9,25 @@ public class CountGene implements HeuristicEvaluationGene {
 
     private Token token;
 
-    @Override
-    public HeuristicEvaluationGene replicateWithMutation() {
-        // TODO Auto-generated method stub
-        return null;
+    public CountGene(Token token) {
+        this.token = token;
     }
 
     @Override
-    public Double evaluate(GameBoardEvaluationWrapper boardGame) {
-        // TODO Auto-generated method stub
-        return null;
+    public HeuristicEvaluationGene replicateWithMutation() {
+        double r = RandomUtil.randomDouble(0, 1);
+        if(r < .02) {
+            return NewGeneGenerator.creatNewGene();
+        }
+        if(r < .05) {
+            return new CountGene(Token.values()[RandomUtil.randomInt(Token.values().length)]);
+        }
+        return new CountGene(token);
+    }
+
+    @Override
+    public Double evaluate(GameBoardEvaluationWrapper gameBoard) {
+        return gameBoard.getNumberOfToken(token);
     }
 
     @Override

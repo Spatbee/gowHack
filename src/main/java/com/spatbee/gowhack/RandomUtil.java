@@ -15,4 +15,8 @@ public class RandomUtil {
     public static int randomInt(int bound) {
         return getRandom().nextInt(bound);
     }
+
+    public static double randomDouble(double floor, double ceil) {
+        return (getRandom().nextDouble() * (ceil - floor)) + floor;
+    }
 }

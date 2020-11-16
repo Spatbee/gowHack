@@ -1,5 +1,7 @@
 package com.spatbee.gowhack.heuristics;
 
+import com.spatbee.gowhack.RandomUtil;
+
 public class DifferenceGene implements HeuristicEvaluationGene {
 
     private static final long serialVersionUID = 1L;
@@ -7,16 +9,23 @@ public class DifferenceGene implements HeuristicEvaluationGene {
     private HeuristicEvaluationGene minuend;
     private HeuristicEvaluationGene subtrahend;
 
-    @Override
-    public HeuristicEvaluationGene replicateWithMutation() {
-        // TODO Auto-generated method stub
-        return null;
+    public DifferenceGene(HeuristicEvaluationGene minuend, HeuristicEvaluationGene subtrahend) {
+        this.minuend = minuend;
+        this.subtrahend = subtrahend;
     }
 
     @Override
-    public Double evaluate(GameBoardEvaluationWrapper boardGame) {
-        // TODO Auto-generated method stub
-        return null;
+    public HeuristicEvaluationGene replicateWithMutation() {
+        double r = RandomUtil.randomDouble(0, 1);
+        if(r < .02) {
+            return NewGeneGenerator.creatNewGene();
+        }
+        return new DifferenceGene(minuend.replicateWithMutation(), subtrahend.replicateWithMutation());
+    }
+
+    @Override
+    public Double evaluate(GameBoardEvaluationWrapper gameBoard) {
+        return minuend.evaluate(gameBoard) - subtrahend.evaluate(gameBoard);
     }
 
     @Override

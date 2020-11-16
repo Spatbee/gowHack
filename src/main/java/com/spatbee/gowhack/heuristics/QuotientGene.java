@@ -1,5 +1,7 @@
 package com.spatbee.gowhack.heuristics;
 
+import com.spatbee.gowhack.RandomUtil;
+
 public class QuotientGene implements HeuristicEvaluationGene {
 
     private static final long serialVersionUID = 1L;
@@ -7,16 +9,24 @@ public class QuotientGene implements HeuristicEvaluationGene {
     private HeuristicEvaluationGene dividend;
     private HeuristicEvaluationGene divisor;
 
-    @Override
-    public HeuristicEvaluationGene replicateWithMutation() {
-        // TODO Auto-generated method stub
-        return null;
+    public QuotientGene(HeuristicEvaluationGene dividend, HeuristicEvaluationGene divisor) {
+        this.dividend = dividend;
+        this.divisor = divisor;
     }
 
     @Override
-    public Double evaluate(GameBoardEvaluationWrapper boardGame) {
-        // TODO Auto-generated method stub
-        return null;
+    public HeuristicEvaluationGene replicateWithMutation() {
+        double r = RandomUtil.randomDouble(0, 1);
+        if(r < .02) {
+            return NewGeneGenerator.creatNewGene();
+        }
+        return new QuotientGene(dividend.replicateWithMutation(), divisor.replicateWithMutation());
+    }
+
+    @Override
+    public Double evaluate(GameBoardEvaluationWrapper gameBoard) {
+        double divisorEvaluation = divisor.evaluate(gameBoard);
+        return divisorEvaluation == 0 ? 0 : dividend.evaluate(gameBoard) / divisorEvaluation;
     }
 
     @Override

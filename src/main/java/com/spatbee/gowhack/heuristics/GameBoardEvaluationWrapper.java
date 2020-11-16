@@ -100,21 +100,29 @@ public class GameBoardEvaluationWrapper {
         return Double.valueOf(gameBoard.getTurnsLeft());
     }
 
+    private void evaluateNumberOfFourAndFiveMatchTurns() {
+        numberOfFourMatchTurns = 0d;
+        numberOfFiveMatchTurns = 0d;
+        for (Turn turn : turns) {
+            try {
+                int turnSize = gameBoard.getSizeOfTurnBeforeWithoutGravity(turn);
+                if (turnSize == 4) {
+                    numberOfFourMatchTurns++;
+                } else if (gameBoard.getSizeOfTurnBeforeWithoutGravity(turn) > 4) {
+                    numberOfFiveMatchTurns++;
+                }
+            } catch (MatchDoesNotContainSingleTurnCoordinateException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public Double getNumberOfFiveMatchTurns() {
         if (turns == null) {
             turns = gameBoard.getAllTurns();
         }
         if (numberOfFiveMatchTurns == null) {
-            numberOfFiveMatchTurns = 0d;
-            for (Turn turn : turns) {
-                try {
-                    if (gameBoard.getSizeOfTurnBeforeWithoutGravity(turn) > 5) {
-                        numberOfFiveMatchTurns++;
-                    }
-                } catch (MatchDoesNotContainSingleTurnCoordinateException e) {
-                    e.printStackTrace();
-                }
-            }
+            evaluateNumberOfFourAndFiveMatchTurns();
         }
         return numberOfFiveMatchTurns;
     }
@@ -124,16 +132,7 @@ public class GameBoardEvaluationWrapper {
             turns = gameBoard.getAllTurns();
         }
         if (numberOfFourMatchTurns == null) {
-            numberOfFourMatchTurns = 0d;
-            for (Turn turn : turns) {
-                try {
-                    if (gameBoard.getSizeOfTurnBeforeWithoutGravity(turn) == 4) {
-                        numberOfFourMatchTurns++;
-                    }
-                } catch (MatchDoesNotContainSingleTurnCoordinateException e) {
-                    e.printStackTrace();
-                }
-            }
+            evaluateNumberOfFourAndFiveMatchTurns();
         }
         return numberOfFourMatchTurns;
 

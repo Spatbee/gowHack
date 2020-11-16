@@ -1,5 +1,7 @@
 package com.spatbee.gowhack.heuristics;
 
+import com.spatbee.gowhack.RandomUtil;
+
 public class IfElseGene implements HeuristicEvaluationGene {
 
     private static final long serialVersionUID = 1L;
@@ -8,16 +10,28 @@ public class IfElseGene implements HeuristicEvaluationGene {
     private HeuristicEvaluationGene trueGene;
     private HeuristicEvaluationGene falseGene;
     
-    @Override
-    public HeuristicEvaluationGene replicateWithMutation() {
-        // TODO Auto-generated method stub
-        return null;
+    public IfElseGene(HeuristicEvaluationGene branchGene, HeuristicEvaluationGene trueGene, HeuristicEvaluationGene falseGene) {
+        this.branchGene = branchGene;
+        this.trueGene = trueGene;
+        this.falseGene = falseGene;
     }
 
     @Override
-    public Double evaluate(GameBoardEvaluationWrapper boardGame) {
-        // TODO Auto-generated method stub
-        return null;
+    public HeuristicEvaluationGene replicateWithMutation() {
+        double r = RandomUtil.randomDouble(0, 1);
+        if(r < .02) {
+            return NewGeneGenerator.creatNewGene();
+        }
+        return new IfElseGene(branchGene.replicateWithMutation(), trueGene.replicateWithMutation(), falseGene.replicateWithMutation());
+    }
+
+    @Override
+    public Double evaluate(GameBoardEvaluationWrapper gameBoard) {
+        double branchGeneEvaluation = branchGene.evaluate(gameBoard);
+        if(branchGeneEvaluation > 1) {
+            return trueGene.evaluate(gameBoard);
+        }
+        return falseGene.evaluate(gameBoard);
     }
 
     @Override
