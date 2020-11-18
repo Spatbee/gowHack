@@ -18,10 +18,10 @@ public class HeightGene implements HeuristicEvaluationGene {
     @Override
     public HeuristicEvaluationGene replicateWithMutation() {
         double r = RandomUtil.randomDouble(0, 1);
-        if(r < .02) {
+        if(r < .04) {
             return NewGeneGenerator.creatNewGene();
         }
-        if(r < .05) {
+        if(r < .1) {
             return new HeightGene(Token.values()[RandomUtil.randomInt(Token.values().length)]);
         }
         return new HeightGene(token);

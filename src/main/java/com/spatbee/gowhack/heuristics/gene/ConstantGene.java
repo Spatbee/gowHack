@@ -17,10 +17,10 @@ public class ConstantGene implements HeuristicEvaluationGene {
     @Override
     public HeuristicEvaluationGene replicateWithMutation() {
         double r = RandomUtil.randomDouble(0, 1);
-        if(r < .02) {
+        if(r < .04) {
             return NewGeneGenerator.creatNewGene();
         }
-        if(r < .05) {
+        if(r < .1) {
             return new ConstantGene(value + RandomUtil.randomDouble(-5d, 5d));
         }
         return new ConstantGene(value);

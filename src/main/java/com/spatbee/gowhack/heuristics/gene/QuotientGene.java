@@ -19,7 +19,7 @@ public class QuotientGene implements HeuristicEvaluationGene {
     @Override
     public HeuristicEvaluationGene replicateWithMutation() {
         double r = RandomUtil.randomDouble(0, 1);
-        if(r < .02) {
+        if(r < .04) {
             return NewGeneGenerator.creatNewGene();
         }
         return new QuotientGene(dividend.replicateWithMutation(), divisor.replicateWithMutation());

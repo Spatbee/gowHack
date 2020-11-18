@@ -1,5 +1,5 @@
 TODO:
-- genetic algorithm
+- genetic algorithm -done
   - serialization
 
 

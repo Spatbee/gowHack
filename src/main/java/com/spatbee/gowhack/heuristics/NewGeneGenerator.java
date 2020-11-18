@@ -37,13 +37,13 @@ public class NewGeneGenerator {
             case 0:
                 return new ConstantGene(RandomUtil.randomDouble(-5d, 5d));
             case 1:
-                return new CountGene(Token.values()[Token.values().length]);
+                return new CountGene(Token.values()[RandomUtil.randomInt(Token.values().length)]);
             case 2:
                 return new FiveMatchGene();
             case 3:
                 return new FourMatchGene();
             case 4:
-                return new HeightGene(Token.values()[Token.values().length]);
+                return new HeightGene(Token.values()[RandomUtil.randomInt(Token.values().length)]);
             case 5:
                 return new NumberOfTurnsGene();
             case 6:
