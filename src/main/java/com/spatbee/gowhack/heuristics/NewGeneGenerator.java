@@ -25,14 +25,14 @@ public class NewGeneGenerator {
     }
     
     public static HeuristicEvaluationGene creatNewGene() {
-        if(RandomUtil.randomDouble(0d, 1d) < .3) {
+        if(RandomUtil.randomDouble(0d, 1d) < .42) {
             return createNewNonterminalGene();
         }
         return createNewTerminalGene();
     }
 
     private static HeuristicEvaluationGene createNewTerminalGene() {
-        int r = RandomUtil.randomInt(9);
+        int r = RandomUtil.randomInt(8);
         switch(r) {
             case 0:
                 return new ConstantGene(RandomUtil.randomDouble(-5d, 5d));
@@ -47,10 +47,8 @@ public class NewGeneGenerator {
             case 5:
                 return new NumberOfTurnsGene();
             case 6:
-                return new RandomGene();
-            case 7:
                 return new ScoreGene();
-            case 8:
+            case 7:
                 return new TurnsLeftGene();
             default:
                 return null; //this will never happen

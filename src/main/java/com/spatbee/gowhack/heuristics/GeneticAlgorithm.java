@@ -76,7 +76,7 @@ public class GeneticAlgorithm {
             System.out.println("Best Gene: " + bestGenes[0].pretty());
             if(i % 100 == 0) {
                 try {
-                    savePopulation(population, "generation" + i + ".txt");
+                    savePopulation(population, "generation" + i + "a" + topScores[0] + ".txt");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
