@@ -63,7 +63,11 @@ public class GeneticAlgorithm {
         for(int i = 0; i < 10000; i++) {
             int[] topScores = new int[population.size() / 2];
             HeuristicEvaluationGene[] bestGenes = new HeuristicEvaluationGene[population.size() / 2];
+            for(int randomGene = 0; randomGene < 5; randomGene++) {
+                population.add(NewGeneGenerator.creatNewGene());
+            }
             for(HeuristicEvaluationGene gene : population) {
+                System.out.println(gene.pretty());
                 updateTopScores(topScores, bestGenes, gene, getAverageScore(gene));
             }
             population = new ArrayList<>();
@@ -71,9 +75,11 @@ public class GeneticAlgorithm {
             for(HeuristicEvaluationGene gene : bestGenes) {
                 population.add(gene.replicateWithMutation());
             }
+            System.out.println("***************************************************");
             System.out.println("Generation: " + i);
             System.out.println("Average score: " + topScores[0]);
             System.out.println("Best Gene: " + bestGenes[0].pretty());
+            System.out.println("***************************************************");
             if(i % 100 == 0) {
                 try {
                     savePopulation(population, "generation" + i + "a" + topScores[0] + ".txt");
@@ -93,6 +99,7 @@ public class GeneticAlgorithm {
                 }
                 topScores[scoreIndex] = averageScore;
                 bestGenes[scoreIndex] = gene;
+                break;
             }
         }
     }

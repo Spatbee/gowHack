@@ -10,10 +10,10 @@ import com.spatbee.gowhack.heuristics.gene.FourMatchGene;
 import com.spatbee.gowhack.heuristics.gene.HeightGene;
 import com.spatbee.gowhack.heuristics.gene.HeuristicEvaluationGene;
 import com.spatbee.gowhack.heuristics.gene.IfElseGene;
+import com.spatbee.gowhack.heuristics.gene.NumberOfPairsGene;
 import com.spatbee.gowhack.heuristics.gene.NumberOfTurnsGene;
 import com.spatbee.gowhack.heuristics.gene.ProductGene;
 import com.spatbee.gowhack.heuristics.gene.QuotientGene;
-import com.spatbee.gowhack.heuristics.gene.RandomGene;
 import com.spatbee.gowhack.heuristics.gene.ScoreGene;
 import com.spatbee.gowhack.heuristics.gene.SumGene;
 import com.spatbee.gowhack.heuristics.gene.TurnsLeftGene;
@@ -32,7 +32,7 @@ public class NewGeneGenerator {
     }
 
     private static HeuristicEvaluationGene createNewTerminalGene() {
-        int r = RandomUtil.randomInt(8);
+        int r = RandomUtil.randomInt(9);
         switch(r) {
             case 0:
                 return new ConstantGene(RandomUtil.randomDouble(-5d, 5d));
@@ -50,6 +50,8 @@ public class NewGeneGenerator {
                 return new ScoreGene();
             case 7:
                 return new TurnsLeftGene();
+            case 8:
+                return new NumberOfPairsGene();
             default:
                 return null; //this will never happen
         }

@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         
         // GamePlayer.playGame();
-        GeneticAlgorithm.runPopulationWithRandomSeed();
-        // System.out.println(GeneticAlgorithm.getPrettyOfBestGeneInPopulationFile("gene.txt"));
+        // GeneticAlgorithm.runPopulationWithRandomSeed();
+        System.out.println(GeneticAlgorithm.getPrettyOfBestGeneInPopulationFile("generation200a1507.txt"));
     }
 }
