@@ -2,8 +2,11 @@ package com.spatbee.gowhack.heuristics;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,11 +30,16 @@ public class GeneticAlgorithm {
     }
 
     public static void runPopulationFromFileSeed(String filePath) throws IOException, ClassNotFoundException {
+        stepPopulation(readPopulationFromFile(filePath));
+    }
+
+    private static List<HeuristicEvaluationGene> readPopulationFromFile(String filePath) throws IOException, ClassNotFoundException {
+        List<HeuristicEvaluationGene> population = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(filePath)))) {
             Object fileObject = ois.readObject();
             
             if(fileObject instanceof List<?>) {
-                List<HeuristicEvaluationGene> population = new ArrayList<>();
+                
                 for(Object readListObject : (List<?>) fileObject) {
                     if(readListObject instanceof HeuristicEvaluationGene) {
                         population.add((HeuristicEvaluationGene)readListObject);
@@ -39,15 +47,20 @@ public class GeneticAlgorithm {
                         throw new IOException("object in list was not of type HeuristicEvaluationGene");        
                     }
                 }
-                stepPopulation(population);
+                
             } else {
                 throw new IOException("object read was not of type List<?>");
             }
         }
+        return population;
+    }
+
+    public static String getPrettyOfBestGeneInPopulationFile(String filePath) throws ClassNotFoundException, IOException {
+        return readPopulationFromFile(filePath).get(0).pretty();
     }
 
     private static void stepPopulation(List<HeuristicEvaluationGene> population) {
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 10000; i++) {
             int[] topScores = new int[population.size() / 2];
             HeuristicEvaluationGene[] bestGenes = new HeuristicEvaluationGene[population.size() / 2];
             for(HeuristicEvaluationGene gene : population) {
@@ -61,6 +74,13 @@ public class GeneticAlgorithm {
             System.out.println("Generation: " + i);
             System.out.println("Average score: " + topScores[0]);
             System.out.println("Best Gene: " + bestGenes[0].pretty());
+            if(i % 100 == 0) {
+                try {
+                    savePopulation(population, "generation" + i + ".txt");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -92,5 +112,11 @@ public class GeneticAlgorithm {
         }
         int averageScore = totalScore / 5;
         return averageScore;
+    }
+    
+    private static void savePopulation(List<HeuristicEvaluationGene> population, String fileName) throws IOException {
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(fileName)))) {
+            oos.writeObject(population);
+        }
     }
 }

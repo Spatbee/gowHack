@@ -1,8 +1,5 @@
 TODO:
-- genetic algorithm -done
-  - serialization
-
-
+-run overnight
 
 To run:
 mvn clean install
